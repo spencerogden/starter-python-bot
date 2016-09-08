@@ -4,14 +4,7 @@ import re
 
 from wit import Wit
 
-
-def send(request,response):
-    
-
-
-
 logger = logging.getLogger(__name__)
-
 
 class RtmEventHandler(object):
     def __init__(self, slack_clients, msg_writer):
@@ -59,7 +52,9 @@ class RtmEventHandler(object):
                     'channel_id':channel_id,
                     'user': event['user'],
                     }
+                logger.debug('Sending msg: {} to Wit.ai'.format(msg_txt))    
                 resp = self.wit_client.converse(session_id, msg_txt,context)
+                logger.debug('Got resp: {}'.format(resp))
                 if resp['type'] == 'msg':
                     if isinstance(channel_id, dict):
                         channel_id = channel_id['id']
