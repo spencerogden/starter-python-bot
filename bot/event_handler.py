@@ -11,9 +11,8 @@ class RtmEventHandler(object):
         self.clients = slack_clients
         
         self.wit_token = os.getenv('WIT_TOKEN',"")
-        logging.info("wit token: {}".format(wit_token)
-        
-        self.wit_client = Wit(access_token=wit_token)
+        logging.info("wit token: {}".format(wit_token))
+        self.wit_client = Wit(access_token=self.wit_token)
 
     def handle(self, event):
         if 'type' in event:
