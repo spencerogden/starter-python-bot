@@ -50,7 +50,8 @@ class RtmEventHandler(object):
                 channel_id = event['channel']
                 context = {
                     'channel_id':channel_id,
-                    'user': event['user'],
+                    'user': user['name'],
+                    'user_id': event['user'],
                     }
                 logger.debug('Sending msg: {} to Wit.ai'.format(msg_txt))    
                 resp = self.wit_client.converse(session_id, msg_txt,context)
