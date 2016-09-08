@@ -9,8 +9,6 @@ from beepboop import bot_manager
 from slack_bot import SlackBot
 from slack_bot import spawn_bot
 
-from wit import Wit
-
 logger = logging.getLogger(__name__)
 
 
@@ -21,11 +19,6 @@ if __name__ == "__main__":
 
     slack_token = os.getenv("SLACK_TOKEN", "")
     logging.info("slack token: {}".format(slack_token))
-    
-    wit_token = os.getenv('WIT_TOKEN","")
-    logging.info("wit token: {}".format(wit_token))
-
-    wit_client = Wit(access_token=wit_token,...)
 
     if slack_token == "":
         logging.info("SLACK_TOKEN env var not set, expecting token to be provided by Resourcer events")
