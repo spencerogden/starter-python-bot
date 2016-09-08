@@ -50,7 +50,7 @@ class RtmEventHandler(object):
                 channel_id = event['channel']
                 context = {
                     'channel_id':channel_id,
-                    'user': user['name'],
+                    'user': user.name,
                     'user_id': event['user'],
                     }
                 logger.debug('Sending msg: {} to Wit.ai'.format(msg_txt))    
