@@ -7,17 +7,15 @@ from wit import Wit
 logger = logging.getLogger(__name__)
 
 class RtmEventHandler(object):
-    def __init__(self, slack_clients, msg_writer):
+    def __init__(self, slack_clients):
         self.clients = slack_clients
-        self.msg_writer = msg_writer
         
         self.wit_token = os.getenv('WIT_TOKEN","")
         logging.info("wit token: {}".format(wit_token)
         
-        self.wit_client = Wit(access_token=wit_token,
+        self.wit_client = Wit(access_token=wit_token)
 
     def handle(self, event):
-
         if 'type' in event:
             self._handle_by_type(event['type'], event)
 
@@ -25,16 +23,16 @@ class RtmEventHandler(object):
         # See https://api.slack.com/rtm for a full list of events
         if event_type == 'error':
             # error
-            self.msg_writer.write_error(event['channel'], json.dumps(event))
+            logger.debug('Error event')
         elif event_type == 'message':
             # message was sent to channel
             self._handle_message(event)
         elif event_type == 'channel_joined':
             # you joined a channel
-            self.msg_writer.write_help_message(event['channel'])
+            logger.debug('Channel joined')
         elif event_type == 'group_joined':
             # you joined a private group
-            self.msg_writer.write_help_message(event['channel'])
+            logger.debug('Group joined')
         else:
             pass
 
