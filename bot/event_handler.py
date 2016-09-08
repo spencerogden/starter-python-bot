@@ -54,6 +54,7 @@ class RtmEventHandler(object):
                 resp = self.wit_client.converse(session_id, msg_txt,context)
                 logger.debug('Got resp: {}'.format(resp))
                 if resp['type'] == 'msg':
+                    msg = resp['msg']
                     if isinstance(channel_id, dict):
                         channel_id = channel_id['id']
                     logger.debug('Sending msg: {} to channel: {}'.format(msg, channel_id))
