@@ -59,4 +59,4 @@ class RtmEventHandler(object):
                     channel = self.clients.rtm.server.channels.find(channel_id)
                     channel.send_message("{}".format(msg.encode('ascii', 'ignore')))
                 elif resp['type'] == 'action':
-                    logger.debug('do {}'.format(resp['action'])
+                    logger.debug('do {}'.format(resp['action']))
