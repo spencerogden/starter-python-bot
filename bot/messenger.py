@@ -1,5 +1,6 @@
 import logging
 import random
+import pywit
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +29,7 @@ class Messenger(object):
     def write_greeting(self, channel_id, user_id):
         greetings = ['Hi', 'Hello', 'Nice to meet you', 'Howdy', 'Salutations']
         txt = '{}, <@{}>!'.format(random.choice(greetings), user_id)
+        txt += 'I'm using pywit version {}.'.format(pywit.__version__)
         self.send_message(channel_id, txt)
 
     def write_prompt(self, channel_id):
