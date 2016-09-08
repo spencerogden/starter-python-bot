@@ -1,5 +1,5 @@
-name: Beepboop Starterbot
-description: A simple Python bot sample for Beep Boop
+name: KATE
+description: A simple market bot
 avatar: resources/avatar.png
 background: resources/background.png
 config:
