@@ -2,6 +2,14 @@ import json
 import logging
 import re
 
+from wit import Wit
+
+
+def send(request,response):
+    
+
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -9,6 +17,11 @@ class RtmEventHandler(object):
     def __init__(self, slack_clients, msg_writer):
         self.clients = slack_clients
         self.msg_writer = msg_writer
+        
+        self.wit_token = os.getenv('WIT_TOKEN","")
+        logging.info("wit token: {}".format(wit_token)
+        
+        self.wit_client = Wit(access_token=wit_token,
 
     def handle(self, event):
 
@@ -39,14 +52,19 @@ class RtmEventHandler(object):
             msg_txt = event['text']
 
             if self.clients.is_bot_mention(msg_txt):
-                # e.g. user typed: "@pybot tell me a joke!"
-                if 'help' in msg_txt:
-                    self.msg_writer.write_help_message(event['channel'])
-                elif re.search('hi|hey|hello|howdy', msg_txt):
-                    self.msg_writer.write_greeting(event['channel'], event['user'])
-                elif 'joke' in msg_txt:
-                    self.msg_writer.write_joke(event['channel'])
-                elif 'attachment' in msg_txt:
-                    self.msg_writer.demo_attachment(event['channel'])
-                else:
-                    self.msg_writer.write_prompt(event['channel'])
+                # User mentiones bot
+                session_id = 'test'
+                channel_id = event['channel']
+                context = {
+                    'channel_id':channel_id,
+                    'user': event['user'],
+                    }
+                resp = self.wit_client.converse(session_id, msg_txt,context)
+                if resp['type'] == 'msg':
+                    if isinstance(channel_id, dict):
+                        channel_id = channel_id['id']
+                    logger.debug('Sending msg: {} to channel: {}'.format(msg, channel_id))
+                    channel = self.clients.rtm.server.channels.find(channel_id)
+                    channel.send_message("{}".format(msg.encode('ascii', 'ignore')))
+                elif resp['type'] == 'action':
+                    logger.debug('do {}'.format(resp['action'])
