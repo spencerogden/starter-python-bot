@@ -10,7 +10,7 @@ class RtmEventHandler(object):
     def __init__(self, slack_clients):
         self.clients = slack_clients
         
-        self.wit_token = os.getenv('WIT_TOKEN',"")
+        self.wit_token = "L54MRSYYCC7KUS7OWBT3PVTGJTS462T5"
         logging.info("wit token: {}".format(wit_token))
         self.wit_client = Wit(access_token=self.wit_token)
 
