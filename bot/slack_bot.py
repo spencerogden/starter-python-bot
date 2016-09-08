@@ -52,7 +52,6 @@ class SlackBot(object):
                     except:
                         err_msg = traceback.format_exc()
                         logging.error('Unexpected error: {}'.format(err_msg))
-                        msg_writer.write_error(event['channel'], err_msg)
                         continue
 
                 self._auto_ping()
