@@ -1,13 +1,23 @@
 import logging
 import random
-import wit
+import os
+
+from wit import Wit
 
 logger = logging.getLogger(__name__)
 
 
 class Messenger(object):
-    def __init__(self, slack_clients):
+    def __init__(self, slack_clients,wit_token):
         self.clients = slack_clients
+        
+        wit_token = os.getenv('WIT_TOKEN","")
+        logging.info("wit token: {}".format(wit_token))
+        self.wit_client = Wit(access_token=wit_token,
+            {'send':self.send_message,
+            'action':self.write_help_message
+            }
+        )
 
     def send_message(self, channel_id, msg):
         # in the case of Group and Private channels, RTM channel payload is a complex dictionary
