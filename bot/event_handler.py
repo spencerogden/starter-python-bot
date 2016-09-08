@@ -11,7 +11,7 @@ class RtmEventHandler(object):
         self.clients = slack_clients
         
         self.wit_token = "L54MRSYYCC7KUS7OWBT3PVTGJTS462T5"
-        logging.info("wit token: {}".format(wit_token))
+        logging.info("wit token: {}".format(self.wit_token))
         self.wit_client = Wit(access_token=self.wit_token)
 
     def handle(self, event):
