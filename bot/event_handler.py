@@ -40,6 +40,8 @@ class RtmEventHandler(object):
         # Filter out messages from the bot itself
         if not self.clients.is_message_from_me(event['user']):
             logger.debug('Got event:  {}'.format(event))
+            user = self.clients.rtm.server.users.info(event['user'])
+            logger.debug('From users: {}'.format(users))
             msg_txt = event['text']
 
             if self.clients.is_bot_mention(msg_txt):
